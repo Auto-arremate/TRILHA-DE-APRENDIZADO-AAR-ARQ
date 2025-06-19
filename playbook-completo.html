@@ -3925,7 +3925,7 @@
         </section>
 
 
-<section class="module-section">
+<section class="module-section hidden">
 
         
         <!-- Section: Pista de Decolagem -->
@@ -4028,7 +4028,7 @@
     
 </section>
 
-<section class="module-section">
+<section class="module-section hidden">
 
 
         <!-- =============================================
@@ -4173,7 +4173,7 @@
     
 </section>
 
-<section class="module-section">
+<section class="module-section hidden">
 
         <!-- 
          * =============================================
@@ -4254,7 +4254,7 @@
     
 </section>
 
-<section class="module-section">
+<section class="module-section hidden">
 
         <section id="playbook-sec-2-content-main" class="playbook-sub-section">
             <div class="container mx-auto">
@@ -4752,7 +4752,7 @@
     
 </section>
 
-<section class="module-section">
+<section class="module-section hidden">
 
         <!-- Seções principais (espaços reservados para sua estrutura existente) -->
         <section id="capa-section" class="hidden"></section>
@@ -5402,13 +5402,13 @@
     
 </section>
 
-<section class="module-section">
+<section class="module-section hidden">
 
             <!-- Conteúdo será renderizado aqui pelo JS -->
         
 </section>
 
-<section class="module-section">
+<section class="module-section hidden">
 
         <!-- Seção de Conteúdo da Comunicação Estratégica -->
         <section id="playbook-sec-7-content-main" class="playbook-sub-section" data-aos="fade-up">
@@ -5548,7 +5548,7 @@
     
 </section>
 
-<section class="module-section">
+<section class="module-section hidden">
 
         <!-- Conteúdo da Seção Glossário -->
         <section id="playbook-sec-8-content-main" class="playbook-sub-section" data-aos="fade-up">
@@ -5672,7 +5672,7 @@
     
 </section>
 
-<section class="module-section">
+<section class="module-section hidden">
 
         <!-- Conteúdo da Seção Evolução Contínua -->
         <section id="playbook-sec-9-content-main" class="playbook-sub-section" data-aos="fade-up">
@@ -5750,7 +5750,7 @@
     
 </section>
 
-<section class="module-section">
+<section class="module-section hidden">
 
         <!-- Conteúdo da Seção Central de Comando (Contato e Suporte) -->
         <section id="playbook-sec-10-content-main" class="playbook-sub-section" data-aos="fade-up">
@@ -5841,7 +5841,7 @@
     
 </section>
 
-<section class="module-section">
+<section class="module-section hidden">
 
         <!-- Hero Section -->
         <header class="bg-white">
@@ -6133,7 +6133,7 @@
     
 </section>
 
-<section class="module-section">
+<section class="module-section hidden">
 
         <section id="portal-cards-section" class="text-center py-8 md:py-10" data-aos="fade-up">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -6213,7 +6213,7 @@
 
     
 </section>
-<section class="module-section"><img src="MODULO 14 - CERTIFICADO DE CONCLUSAO.png" alt="Certificado de Conclusão" class="mx-auto"></section>
+<section class="module-section hidden"><img src="MODULO 14 - CERTIFICADO DE CONCLUSAO.png" alt="Certificado de Conclusão" class="mx-auto"></section>
     </main>
 
     <!-- Theme Toggle Button -->
@@ -6239,13 +6239,16 @@
             const openManualPitStopBtn = document.getElementById('openManualPitStopBtn');
             const backToMenuPrincipalBtns = document.querySelectorAll('.backToMenuPrincipalBtn');
             const backToManualPitStopDetalhesBtns = document.querySelectorAll('.backToManualPitStopDetalhesBtn');
+            const moduleSections = document.querySelectorAll('.module-section');
+            const rota66SubSections = document.querySelectorAll('#jornada-cliente-aa-content-section .playbook-sub-section');
 
             /**
              * Hides all main sections and shows the specified one.
              * @param {HTMLElement} sectionToShow The section to make visible.
              */
             function showSection(sectionToShow) {
-                [capaSection, menuPrincipalSection, manualPitstopDetalhesSection, placeholderContentSection].forEach(s => {
+                const allSections = [capaSection, menuPrincipalSection, manualPitstopDetalhesSection, placeholderContentSection, ...moduleSections, ...rota66SubSections];
+                allSections.forEach(s => {
                     if (s) s.classList.add('hidden');
                 });
                 
@@ -6287,23 +6290,53 @@
                     e.preventDefault();
                     showSection(manualPitstopDetalhesSection);
                 });
-            })
+            });
+
+            document.querySelectorAll('.navigateToPlaybookSection').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = button.getAttribute('data-target');
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        showSection(targetSection);
+                    }
+                });
+            });
+
+            document.querySelectorAll('.navigateToRota66SubSection').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = button.getAttribute('data-target');
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        showSection(targetSection);
+                    }
+                });
+            });
+
+            document.querySelectorAll('.backToRota66IndexBtn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const rotaIndex = document.getElementById('jornada-cliente-aa-content-section');
+                    showSection(rotaIndex);
+                });
+            });
 
             // --- Playbook Index Data (Updated) ---
             const indexDataPlaybook = [
-                { emoji: "🛠️", title: "<strong>MANUAL DO PIT STOP AAR E ARQ</strong> ESTRATÉGIAS PARA VENCER!", sub: "Conheça o motor que impulsiona a Auto Arremate & Arremaq: nossa cultura, missão e o time de campeões.", sentenceEmoji: "🏁" },
-                { emoji: "📜", title: "<strong>NOSSA PISTA DE DECOLAGEM</strong>: HISTÓRIA, VALORES E A FORÇA DA EQUIPE AUTO ARREMATE & ARREMAQ!", sub: "Conheça o motor que impulsiona a Auto Arremate & Arremaq: nossa cultura, missão e o time de campeões.", sentenceEmoji: "📜" },
-                { emoji: "<span class='emoji-autoarremate-color'>🚗</span>", title: "<strong>AUTO ARREMATE NA POLE POSITION</strong>: DOMINANDO O UNIVERSO DOS VEÍCULOS LEVES!", sub: "Descubra como nossa plataforma acelera a gestão e venda de veículos leves, da captação à comercialização.", sentenceEmoji: "🏆" },
-                { emoji: "<span class='emoji-arremaq-color'>🚜</span>", title: "<strong>ARREMAQ</strong>: A FORÇA BRUTA DOS GIGANTES DO AGRO E CONSTRUÇÃO!", sub: "Soluções de peso e estratégias robustas para o repasse eficiente de máquinas agrícolas e de construção.", sentenceEmoji: "⚙️" },
-                { emoji: "🎯", title: "<strong>MAPEANDO OS CAMPEÕES</strong>: NOSSOS CLIENTES IDEAIS AUTO ARREMATE & ARREMAQ (ICPS & PERSONAS)!", sub: "Identifique os perfis de clientes com maior potencial e as personas chave para uma abordagem estratégica.", sentenceEmoji: "🌟" },
-                { emoji: "📊", title: "<strong>A JORNADA DO CLIENTE VENCEDOR AUTO ARREMATE & ARREMAQ</strong>: DA PROSPECÇÃO À BANDEIRADA FINAL (ANIMAÇÃO)!", sub: "Visualize a transformação do cliente, da necessidade à solução, através de nossa animação dinâmica.", sentenceEmoji: "🎬" },
-                { emoji: "🚀", title: "<strong>Aceleração Tática Total</strong>", sub: "Seu centro de comando para conectar, qualificar e converter. ✨ Todas as estratégias, para todas as personas, em um só lugar.", sentenceEmoji: "✨" },
-                { emoji: "✍️", title: "<strong>A ARTE DA COMUNICAÇÃO ESTRATÉGICA AUTO ARREMATE & ARREMAQ</strong>: MODELOS QUE CONVERTEM!", sub: "Termos de impacto, orientações e exemplos práticos para uma comunicação persuasiva e eficaz.", sentenceEmoji: "🗣️" },
-                { emoji: "📖", title: "<strong>DICIONÁRIO DOS MESTRES</strong>: GLOSSÁRIO AUTO ARREMATE & ARREMAQ!", sub: "Decifre os termos técnicos e jargões do mercado automotivo e de máquinas para dominar a linguagem do setor.", sentenceEmoji: "📚" },
-                { emoji: "📈", title: "<strong>EVOLUÇÃO CONTÍNUA</strong>: NOSSO PLAYBOOK AUTO ARREMATE & ARREMAQ EM CONSTANTE APERFEIÇOAMENTO!", sub: "Os próximos passos para o desenvolvimento do playbook e o crescimento contínuo da nossa equipe.", sentenceEmoji: "🌌" },
-                { emoji: "📞", title: "<strong>CENTRAL DE COMANDO AUTO ARREMATE & ARREMAQ</strong>: CANAIS DE CONTATO E SUPORTE ÁGIL!", sub: "Acesse nossos canais de suporte dedicados e encontre ajuda rápida para suas dúvidas e desafios.", sentenceEmoji: "🛠️" },
-                { emoji: "🏆", title: "<strong>DESAFIO DOS CAMPEÕES AUTO ARREMATE</strong>: TESTE SEU CONHECIMENTO ESTRATÉGICO!", sub: "Teste sua sabedoria e astúcia em nosso quiz gamificado sobre o playbook e o universo do repasse!", sentenceEmoji: "🏅" },
-                { emoji: "🏎️💨", title: "<strong>GRANDE PRÊMIO AUTO ARREMATE</strong>: ACELERE NO JOGO DO REPASSE!", sub: "Desafie seus limites e rivais em nosso jogo 2D de alta octanagem e torne-se uma lenda da pista digital!", sentenceEmoji: "🏁" }
+                { emoji: "🛠️", title: "<strong>MANUAL DO PIT STOP AAR E ARQ</strong> ESTRATÉGIAS PARA VENCER!", sub: "Conheça o motor que impulsiona a Auto Arremate & Arremaq: nossa cultura, missão e o time de campeões.", sentenceEmoji: "🏁", targetId: "manual-pitstop-detalhes-section" },
+                { emoji: "📜", title: "<strong>NOSSA PISTA DE DECOLAGEM</strong>: HISTÓRIA, VALORES E A FORÇA DA EQUIPE AUTO ARREMATE & ARREMAQ!", sub: "Conheça o motor que impulsiona a Auto Arremate & Arremaq: nossa cultura, missão e o time de campeões.", sentenceEmoji: "📜", targetId: "pista-decolagem-section" },
+                { emoji: "<span class='emoji-autoarremate-color'>🚗</span>", title: "<strong>AUTO ARREMATE NA POLE POSITION</strong>: DOMINANDO O UNIVERSO DOS VEÍCULOS LEVES!", sub: "Descubra como nossa plataforma acelera a gestão e venda de veículos leves, da captação à comercialização.", sentenceEmoji: "🏆", targetId: "playbook-sec-1-content-main" },
+                { emoji: "<span class='emoji-arremaq-color'>🚜</span>", title: "<strong>ARREMAQ</strong>: A FORÇA BRUTA DOS GIGANTES DO AGRO E CONSTRUÇÃO!", sub: "Soluções de peso e estratégias robustas para o repasse eficiente de máquinas agrícolas e de construção.", sentenceEmoji: "⚙️", targetId: "playbook-sec-arremaq-content-main" },
+                { emoji: "🎯", title: "<strong>MAPEANDO OS CAMPEÕES</strong>: NOSSOS CLIENTES IDEAIS AUTO ARREMATE & ARREMAQ (ICPS & PERSONAS)!", sub: "Identifique os perfis de clientes com maior potencial e as personas chave para uma abordagem estratégica.", sentenceEmoji: "🌟", targetId: "playbook-sec-2-content-main" },
+                { emoji: "📊", title: "<strong>A JORNADA DO CLIENTE VENCEDOR AUTO ARREMATE & ARREMAQ</strong>: DA PROSPECÇÃO À BANDEIRADA FINAL (ANIMAÇÃO)!", sub: "Visualize a transformação do cliente, da necessidade à solução, através de nossa animação dinâmica.", sentenceEmoji: "🎬", targetId: "jornada-cliente-aa-content-section" },
+                { emoji: "🚀", title: "<strong>Aceleração Tática Total</strong>", sub: "Seu centro de comando para conectar, qualificar e converter. ✨ Todas as estratégias, para todas as personas, em um só lugar.", sentenceEmoji: "✨", targetId: null },
+                { emoji: "✍️", title: "<strong>A ARTE DA COMUNICAÇÃO ESTRATÉGICA AUTO ARREMATE & ARREMAQ</strong>: MODELOS QUE CONVERTEM!", sub: "Termos de impacto, orientações e exemplos práticos para uma comunicação persuasiva e eficaz.", sentenceEmoji: "🗣️", targetId: "playbook-sec-7-content-main" },
+                { emoji: "📖", title: "<strong>DICIONÁRIO DOS MESTRES</strong>: GLOSSÁRIO AUTO ARREMATE & ARREMAQ!", sub: "Decifre os termos técnicos e jargões do mercado automotivo e de máquinas para dominar a linguagem do setor.", sentenceEmoji: "📚", targetId: "playbook-sec-8-content-main" },
+                { emoji: "📈", title: "<strong>EVOLUÇÃO CONTÍNUA</strong>: NOSSO PLAYBOOK AUTO ARREMATE & ARREMAQ EM CONSTANTE APERFEIÇOAMENTO!", sub: "Os próximos passos para o desenvolvimento do playbook e o crescimento contínuo da nossa equipe.", sentenceEmoji: "🌌", targetId: "playbook-sec-9-content-main" },
+                { emoji: "📞", title: "<strong>CENTRAL DE COMANDO AUTO ARREMATE & ARREMAQ</strong>: CANAIS DE CONTATO E SUPORTE ÁGIL!", sub: "Acesse nossos canais de suporte dedicados e encontre ajuda rápida para suas dúvidas e desafios.", sentenceEmoji: "🛠️", targetId: "playbook-sec-10-content-main" },
+                { emoji: "🏆", title: "<strong>DESAFIO DOS CAMPEÕES AUTO ARREMATE</strong>: TESTE SEU CONHECIMENTO ESTRATÉGICO!", sub: "Teste sua sabedoria e astúcia em nosso quiz gamificado sobre o playbook e o universo do repasse!", sentenceEmoji: "🏅", targetId: null },
+                { emoji: "🏎️💨", title: "<strong>GRANDE PRÊMIO AUTO ARREMATE</strong>: ACELERE NO JOGO DO REPASSE!", sub: "Desafie seus limites e rivais em nosso jogo 2D de alta octanagem e torne-se uma lenda da pista digital!", sentenceEmoji: "🏁", targetId: null }
             ];
 
             const playbookIndexContainer = document.getElementById('playbookIndexContainer');
@@ -6317,10 +6350,10 @@
                 
                 indexDataPlaybook.forEach(item => {
                     const card = document.createElement('div');
-                    card.className = 'index-item-card'; 
+                    card.className = 'index-item-card';
                     card.setAttribute('data-aos', 'fade-up');
-                    
-                    let emojiHtml = item.emoji.includes("<span") ? item.emoji : `<span class="emoji-original-color">${item.emoji}</span>`;
+
+                    const emojiHtml = item.emoji.includes("<span") ? item.emoji : `<span class="emoji-original-color">${item.emoji}</span>`;
 
                     card.innerHTML = `
                         <span class="index-item-emoji">${emojiHtml}</span>
@@ -6329,12 +6362,16 @@
                             ${item.sentenceEmoji ? `<span class="sentence-emoji emoji-original-color">${item.sentenceEmoji}</span>` : ''}
                             ${item.sub}
                         </p>`;
-                    
-                    // Add click listener to show a placeholder content section
+
                     card.addEventListener('click', () => {
-                        document.getElementById('content-title-placeholder').innerHTML = item.title;
-                        document.getElementById('content-paragraph-placeholder').innerText = "Conteúdo para esta seção está em desenvolvimento.";
-                        showSection(placeholderContentSection);
+                        const targetSection = item.targetId ? document.getElementById(item.targetId) : null;
+                        if (targetSection) {
+                            showSection(targetSection);
+                        } else {
+                            document.getElementById('content-title-placeholder').innerHTML = item.title;
+                            document.getElementById('content-paragraph-placeholder').innerText = "Conteúdo para esta seção está em desenvolvimento.";
+                            showSection(placeholderContentSection);
+                        }
                     });
                     
                     playbookIndexContainer.appendChild(card);
